@@ -1,0 +1,29 @@
+from tkinter import*
+import math as m
+def calculate( ) :
+    if '(' in w.get():
+        w.set(eval(('m.' + w.get())))
+    else:
+        w.set(eval((w.get())))
+x = Tk()
+x.geometry('500x500')
+x.configure(bg = 'cyan')
+w = StringVar(x)
+e = Entry(x, fg = 'yellow', bg = 'black',textvariable = w, width = 25,font = 'Times 15 bold')
+e.pack(pady = 50)
+for i in  ( ('tan', 'log', 'sqrt', 'del'),( "sin", "cos", "(",")"), '789/', '456*', '123-', '0.+%'):
+ f = Frame(x,bg = 'gold')
+ f.pack()
+ for i in i:
+     if i == 'del':
+         Button(f, text = i, fg='white',bg='grey',borderwidth=6,width=5, command=lambda w=w, i=i : w.set((w.get())[ : -1 ]) )\
+             .pack(side= LEFT,pady=5,padx=5)
+     else:
+         Button(f, text = i, fg='white',bg='grey',borderwidth=6,width=5, command=lambda w=w, i=i : w.set(w.get() + i))\
+             .pack(side= LEFT,pady=5,padx=5)
+f = Frame(x,bg = 'red')
+f.pack()
+Button(f, text = 'cls', fg='white',bg='grey',borderwidth=6,width=8, command=lambda w=w : w.set('')).\
+    pack(side= LEFT,pady=5,padx=5)
+Button(f, text = '=', fg='white',bg='grey',borderwidth=6,width=8, command=calculate).pack(side=LEFT,pady=5,padx=5)
+x.mainloop()

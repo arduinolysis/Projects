@@ -1,0 +1,112 @@
+#include <LCD.h>
+#include <LiquidCrystal.h>
+#include <LiquidCrystal_I2C.h>
+#include <Wire.h>
+LiquidCrystal_I2C lcd(0x27,2,1,0,4,5,6,7,3,POSITIVE);
+
+
+//pump section
+int pump_R = 9;
+int pump_L = 8;
+
+
+//pump speed adjust
+int pop=A2;
+int pump_control= 10; //pump speed control pin
+int pump_speed;//pump speed
+int value;
+
+//ultrasonic pins
+int trigpin=A0;
+int echopin=A1;
+long duration;
+int distancecm;
+int a = 375;//pump time
+int b = 3000;//waiting time
+
+//lcd dislplay options
+int people = -1;//bcoz if the initials distance can be zero,so start with -1(fixed due to  the code)
+
+void setup() {
+  //display
+  lcd.begin(16,2);
+  lcd.clear();
+  
+  //pump
+  pinMode(pump_R,OUTPUT);
+  pinMode(pump_L,OUTPUT);
+
+  //ultrasonic sensor
+  pinMode(trigpin,OUTPUT);
+  pinMode(echopin,INPUT);
+  
+
+
+
+}
+
+void loop() {
+  read();// for ultrasonic reading
+  
+    
+
+  
+  if(distancecm <=20)  
+  
+  { people = people + 1;
+  
+    lcd.setCursor(0,1);
+    lcd.print("Num of People=");
+    lcd.print(people);
+
+    
+    
+    
+    analogWrite(pump_control,pump_speed);  
+    digitalWrite(pump_R,HIGH);
+    digitalWrite(pump_L,LOW);
+    delay(a);
+    
+    analogWrite(pump_control,0);
+    digitalWrite(pump_R,LOW);
+    digitalWrite(pump_L,LOW);
+    delay(b);
+  }
+  
+  else if (distancecm>20){  
+  
+    analogWrite(pump_control,0);
+    digitalWrite(pump_R,LOW);
+    digitalWrite(pump_L,LOW); 
+ }  
+
+
+
+
+
+}
+
+void read()
+{
+  digitalWrite(trigpin,LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigpin,HIGH);
+  delayMicroseconds(10);
+
+  duration=pulseIn(echopin,HIGH);
+  distancecm=duration*0.034/2;
+
+  value= analogRead(pop);
+  value=map(value,0,1023,0,255);
+  pump_speed=value;
+
+ if(distancecm<100)
+ { lcd.setCursor(0,0);
+  lcd.print("distanceCm=");
+  lcd.print(distancecm);
+  lcd.print("cm");
+ }
+
+  
+
+}

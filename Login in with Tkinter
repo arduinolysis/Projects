@@ -41,17 +41,4 @@ entry_2 = Entry(login_frame_2,bg = 'white' ,fg = 'black',textvariable= et2, widt
 #btn_frame.pack()
 login_button = Button(screen,text ='Log in', bg = 'white', fg = 'black',width = 30, font = 'Aerial 10 italic', command = login).pack(pady=18)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 screen.mainloop()

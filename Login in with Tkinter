@@ -1,0 +1,57 @@
+from tkinter import*
+from tkinter import messagebox
+screen= Tk()
+screen.geometry('900x300')
+screen.configure(bg='light blue')
+
+def login():
+    if et1.get()=='waiyan' and et2.get() == '123456':
+        messagebox.showinfo("Success","Log in Successful")#successful log in
+        print("Success")
+    elif et1.get()=='waiyan' and et2.get() != '123456':
+        messagebox.showerror("ERROR","Password is incorrect")#fail log in
+
+
+
+    elif et1.get() !='' and et2.get() =='':
+        messagebox.showwarning("ERROR","Please Type in Your Password")  #fill password alert
+    elif et1.get() == '' and et2.get() != '':
+        messagebox.showwarning("ERROR", "Please Type in Your Username") #fill username alert
+
+
+    elif et1.get()!='' and et1.get()!='waiyan' and et2.get() != '' and et2.get()!= '123456':
+        messagebox.showerror("ERROR","Username and Password doesn't match") #log in verification
+    else:
+        messagebox.showerror("ERROR","Please Enter A Valid Account")
+
+et1 = StringVar(screen)
+login_frame = Frame(screen, bg ='cyan')
+login_frame.pack(pady=30)
+l1 = Label(login_frame,text='Username',width=15,font = 'Aerial 13 italic').pack(side=LEFT)
+entry_1 = Entry(login_frame,bg = 'white' ,fg = 'black',textvariable= et1, width = 35, font ='Time 15 bold').pack(side=LEFT)
+
+
+et2 = StringVar(screen)
+login_frame_2= Frame(screen, bg ='cyan')
+login_frame_2.pack()
+l2 = Label(login_frame_2,text='Password',width=15,font = 'Aerial 13 italic').pack(side=LEFT)
+entry_2 = Entry(login_frame_2,bg = 'white' ,fg = 'black',textvariable= et2, width = 35, font ='Time 15 bold').pack(side=LEFT)
+
+#btn_frame = Frame(screen)
+#btn_frame.pack()
+login_button = Button(screen,text ='Log in', bg = 'white', fg = 'black',width = 30, font = 'Aerial 10 italic', command = login).pack(pady=18)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+screen.mainloop()

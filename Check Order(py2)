@@ -1,0 +1,99 @@
+'''               Explanation
+==============================================
+A program that can CHECK what Food Order is available for what day!
+    -Burger is available for Monday,Tuesday & Wednesday
+    -Pizza is available for Thursday & Friday
+    -Saturday & Sunday are Holidays..!
+
+
+
+'''
+
+
+from tkinter import*
+from tkinter import messagebox
+
+screen =Tk()
+screen.config(bg='light blue')
+screen.geometry('600x600')
+
+def check():
+    food_get = food.get().upper()
+    date_get = date.get().upper()
+
+    #Order Confirmation
+    MsgBox = messagebox.askquestion('Order Confirmation', 'Are you sure you want to order this item?',
+                                       icon='info')
+    if MsgBox == 'yes':
+
+
+        # checking Burger and Coffee are  avialable for Monday,Tuesday and Wednesday
+        if food_get in food_selection_1:
+            if date_get in date_selection_1:
+                messagebox.showinfo("Order Confirmed", food_get + " is ready to be served")
+                print("Order Confirmed : ", food_get + " is ready to be served")
+
+            elif date_get in date_selection_2:
+                messagebox.showwarning("Order Declined", "Out of stock for today")
+
+            elif date_get in date_selection_3:
+                messagebox.showwarning("Order Declined", "Today's Closed..Come Back Later")
+
+            else:
+                messagebox.showerror("Order Alert", "Please...Enter a valid Date")
+
+
+        # checking Pizza and Coke are avialable for Thursday & Friday
+        elif food_get in food_selection_2:
+            if date_get in date_selection_2:
+                messagebox.showinfo("Order Confirmed", food_get + " is ready to be served")
+                print("Order Confirmed", food_get + " is ready to be served")
+
+            elif date_get in date_selection_1:
+                messagebox.showwarning("Order Declined", "Out of stock for today")
+
+            elif date_get in date_selection_3:
+                messagebox.showwarning("Order Declined", "Today's Closed..Come Back Later")
+                
+            else:
+                messagebox.showerror("Order Alert", "Please...Enter a valid Date")
+
+        else:
+            messagebox.showerror("Order Alert", "Invalid Order....")
+
+
+
+
+food_selection_1 = ['BURGER','COFFEE']
+food_selection_2 = ['PIZZA','COKE']
+
+date_selection_1 = ['MONDAY','TUESDAY','WEDNESDAY']                 #DAYS FOR BURGER AND COFFEE
+date_selection_2 = ['THURSDAY','FRIDAY']                            #DAYS FOR PIZZA AND COKE
+date_selection_3 = ['SATURDAY','SUNDAY']                            #DAYS FOR HOLIDAY(SH0P'S CLOSED)
+
+#food_frame design
+food_frame = Frame(bg='red')
+food_frame.pack(pady=50)
+food=StringVar(screen)
+food_label = Label(food_frame, text = 'Type of food' , fg = 'black' , bg='cyan' ,width = 17 , font ='Aerial 15 bold italic',relief=FLAT,bd=5)
+food_label.pack(side=LEFT,padx=5)
+food_entry = Entry(food_frame,textvariable = food,fg = 'black',width = 25,font='Times 25 bold',relief=RAISED,bd=5).pack(side=LEFT)
+
+
+#date_frame design
+date_frame = Frame(bg='red')
+date_frame.pack(pady=20)
+date=StringVar(screen)
+date_label = Label(date_frame, text = "Type Today's Date" , fg = 'black' , bg='cyan' ,width = 17 , font ='Aerial 15 bold italic',relief=FLAT,bd=5)
+date_label.pack(side=LEFT,padx=5)
+date_entry = Entry(date_frame,textvariable = date, fg = 'black',width = 25,font='Times 25 bold',relief=RAISED,bd=5).pack(side=LEFT)
+
+
+#button design
+check_btn = Button(screen,text = 'Check Order',bg='light green',fg='black',command=check,
+                   font='Aerial 20 bold italic underline',relief=RAISED,bd='5',
+                   activebackground= 'yellow')
+check_btn.pack(pady=45)
+
+
+screen.mainloop()

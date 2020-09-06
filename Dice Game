@@ -1,0 +1,79 @@
+'''
+------------------------------Die Game-----------------
+
+-You and Computer toss a die
+-Show die points for user and computer for each time
+-if overshoot, deduct if from win point
+-See who reaches win point first
+
+'''
+
+import random
+user_place = 0
+user_move =0
+computer_place =0
+computer_move = 0
+win_point = 40
+user_win = False
+com_win = False
+
+
+
+while not user_win or not com_win:
+
+
+    data = input("Enter t to toss  : \t").lower()
+    if data =='t':
+
+        #user turn
+        user_move = random.randint(1,6)
+        user_place += user_move
+        print("Your Dice : "+str(user_move)+" ")
+
+        #if user overshoot win point
+        if user_place > win_point:
+            overshoot = user_place - win_point
+            user_place= win_point-overshoot
+        print("Now you got  ( "+ str(user_place)+" ) points.\n")
+
+        #computer turn
+        computer_move = random.randint(1,6)
+        computer_place += computer_move
+        print("Computer's Dice : ",str(computer_move)+" ")
+
+        #if computer overshoot win point
+        if computer_place > win_point:
+            overshoot = computer_place - win_point
+            computer_place = win_point-overshoot
+        print("Now Computer got ( "+ str(computer_place)+" ) points")
+
+
+        #checking who leads for each toss
+        if user_place > computer_place:
+            print("----------You are Leading..Keep it up-----------\n")
+        elif user_place == computer_place:
+            print("------------You and Computer Points are Same-------\n")
+        else:
+            print("------------Computer is Leading..Good Luck in Next Toss-----------\n")
+
+        #user win statement check
+        if user_place == win_point:
+            user_win =True
+            break
+        #computer win statement check
+        if computer_place == win_point:
+            com_win = True
+            break
+
+
+#user wins
+if user_win:
+    print("Congratulationss!!!___You win over AI")
+
+else:
+    #computer wins
+    print("Sorry____AI Wins X-)___Good Luck In Next Time")
+
+
+
+
